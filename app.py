@@ -1,24 +1,34 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-from resources.indice import IndiceList, IndiceItem
-from resources.comic import ComicList, ComicItem, ComicItemCreate
-from resources.ssadoc import SsadocItem, SsadocList, SsadocItemCreate
+from db import db
+from resources.item import DownloadItem
+
+__author__ = "@toannguyen3105"
 
 app = Flask(__name__)
 CORS(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 api = Api(app)
 
-api.add_resource(IndiceItem, '/indice-item-delete')
-api.add_resource(IndiceList, '/indices')
-api.add_resource(ComicItem, '/comics/<string:item_id>')
-api.add_resource(ComicItemCreate, '/comics')
-api.add_resource(ComicList, '/comics')
-api.add_resource(SsadocItem, '/ssadocs/<string:item_id>')
-api.add_resource(SsadocItemCreate, '/ssadocs')
-api.add_resource(SsadocList, '/ssadocs')
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+
+api.add_resource(DownloadItem, '/download-files')
+
+# 1. Create a flask app
 if __name__ == '__main__':
+    db.init_app(app)
     app.run(port=5000, debug=True)

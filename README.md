@@ -1,20 +1,12 @@
-# SCRAPE steamcommunity.com
+# Fiverr_James_Nisan_Connect_Download_Upload_file_via_ftp
 
-RESTful API connect to Elastic Search
+Download/Upload files using python
 
 ## Features
 
-- Clean
-- Fast (>500 request/sec on a single core)
-- Manages request delays and maximum concurrency per domain
-- Automatic cookie and session handling
-- Sync/async/parallel scraping
-- Caching
-- Automatic encoding of non-unicode responses
-- Robots.txt support
-- Distributed scraping
-- Configuration via environment variables
-- Extensions
+- Download file sample.txt
+- Upload file sample.txt
+- Store data to sqlite db using sqlalchemy
 
 ## Prerequisites
 
